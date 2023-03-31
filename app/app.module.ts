@@ -3,9 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-// used to create fake backend
-import { fakeBackendProvider } from './_helpers/index';
-
 import { AppComponent }  from './app.component';
 import { routing }        from './app.routing';
 
@@ -16,6 +13,7 @@ import { AlertService, AuthenticationService, UserService } from './_services/in
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
+import { ConfirmationComponent } from './confirmation/index';
 
 @NgModule({
     imports: [
@@ -29,7 +27,8 @@ import { RegisterComponent } from './register/index';
         AlertComponent,
         HomeComponent,
         LoginComponent,
-        RegisterComponent
+        RegisterComponent,
+        ConfirmationComponent
     ],
     providers: [
         AuthGuard,
@@ -40,10 +39,7 @@ import { RegisterComponent } from './register/index';
             provide: HTTP_INTERCEPTORS,
             useClass: JwtInterceptor,
             multi: true
-        },
-
-        // provider used to create fake backend
-        fakeBackendProvider
+        }
     ],
     bootstrap: [AppComponent]
 })

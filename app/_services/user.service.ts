@@ -1,10 +1,22 @@
 ﻿import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import { User } from '../_models/index';
 
 @Injectable()
 export class UserService {
+
+    httpOptions = {
+        headers: new HttpHeaders({
+            'Content-Type':  'application/json'
+        })
+    };
+
+    httpOptionsWithToken = {
+        headers: new HttpHeaders({
+            'Content-Type':  'application/json'
+        })
+    };
     constructor(private http: HttpClient) { }
 
     getAll() {
@@ -16,11 +28,16 @@ export class UserService {
     }
 
     create(user: User) {
-        return this.http.post('/api/users', user);
+        console.log(user)
+        return this.http.post("http://localhost:8077/users/register", user, this.httpOptions);
     }
 
-    update(user: User) {
-        return this.http.put('/api/users/' + user.id, user);
+    confirmUser(token: string) {
+        return this.http.get('http://localhost:8077/users/confirm', {
+            headers: new HttpHeaders({
+                'Authorization':  'Bearer ' + token
+            })
+        });
     }
 
     delete(id: number) {

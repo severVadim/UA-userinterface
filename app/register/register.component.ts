@@ -19,6 +19,7 @@ export class RegisterComponent {
 
     register() {
         this.loading = true;
+        console.log(this.model)
         this.userService.create(this.model)
             .subscribe(
                 data => {
@@ -26,7 +27,8 @@ export class RegisterComponent {
                     this.router.navigate(['login']);
                 },
                 error => {
-                    this.alertService.error(error);
+                    console.log(error.error)
+                    this.alertService.error(error.error);
                     this.loading = false;
                 });
     }
